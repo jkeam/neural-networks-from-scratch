@@ -9,14 +9,38 @@ print("\tBiases: [1, 2, 3]")
 print("\tEach neuron has a weight for each input, which is why there are 4 inputs per list.")
 print("\tBut there are only 3 lists of weights and 3 values in baises bc there are only 3 neurons.")
 print("""
-This is a 3x2 array.
+This is a 3x2 array (tall by wide).
 It is also a matrix because it is retangular (2 dimensions) and homologous (same length and width).
 array = [
     [1, 2], # Row 1
     [3, 4], # Row 2
     [5, 6]  # Row 3
 ]""")
+print("""
+Feature set instance or observation or sample is best done in batches to avoid overfitting and encourage generalization.
+      However, this is often an art to figure out the right batch size.""")
 print("")
+print("""
+Matrix product:
+    Given 2 matrices, multiplies them.  Shape matters and must match, example:
+    (5x4) * (4x5) -> results in a matrix of shape (5x5)
+        The "inner" 4 must match and the result are the "outer" numbers.
+    This is near because if we have a row vector of shape (1x5) and a column vector of (5x1)
+        we get a result that is (1x1) which is a single number!
+
+Transposition:
+    Rows becomes columns. So this (2x3):
+    [
+        [1, 2, 3],
+        [4, 5, 6]
+    ]
+    becomes (3x2):
+    [
+        [1, 4],
+        [2, 5],
+        [3, 6]
+    ]
+""")
 inputs:list[float] = []
 
 print("Single neuron")
@@ -70,5 +94,13 @@ biases = [2.0, 3.0, 0.5]
 layer_outputs = np.dot(weights, inputs) + biases
 print(layer_outputs)
 
+print("Transposition is a neat trick to create a column vector from a regular python list")
+a = [1, 2, 3]
+b = [2, 3, 4]
+# notice that we have to turn both python lists into mathmatical arrays or matrices
+#   which are basically 2 dimensional lists
+a = np.array([a])
+b = np.array([b]).T  # this transposition turns this python list (row vector) into a column vector
+print(np.dot(a, b))  # numpy funtion for both matrix product and dot product is the same func call
 
 print("--------------------------------------------------------------------------------------")
