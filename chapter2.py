@@ -29,6 +29,22 @@ Matrix product:
         we get a result that is (1x1) which is a single number!
 
 Transposition:
+    This is a fundamental concept because the input batch matrix and the weight matrix will typically be the same shape
+        for example, (3x4) and (3x4).
+        In order to be able to perform the matrix product, we can transpose the second matrix to get the desired:
+            (3x4) and (4x3), which then creates the right shapes we need.
+        This works because we care about the relationships between the inputs against the weights.
+        The matrix product does this as it multiplies all input and weight combinations against each other,
+            so transposition has no effect on the final result.
+        We also transpose the weights, so that the output matrix will have the same relationship as the input matrix,
+            where each row represents a feature set/observation/sample,
+            and the column then represents the neurons (bc that is what we transposed).
+            So each row is a feature set and each column is one neuron.
+            Our bias (single vector) is then applied to the result as an addition.
+                so the first element is added to the first column (neuron), which makes sense, each neuron has 1 bias.
+                The second element in the bias vector is added to all elements in the second column of the resultant matrix,
+                so on and so forth.
+
     Rows becomes columns. So this (2x3):
     [
         [1, 2, 3],
@@ -102,5 +118,16 @@ b = [2, 3, 4]
 a = np.array([a])
 b = np.array([b]).T  # this transposition turns this python list (row vector) into a column vector
 print(np.dot(a, b))  # numpy funtion for both matrix product and dot product is the same func call
+
+print("")
+inputs = [[1.0, 2.0, 3.0, 2.5],
+ [2.0, 5.0, -1.0, 2.0],
+ [-1.5, 2.7, 3.3, -0.8]]
+weights = [[0.2, 0.8, -0.5, 1.0],
+ [0.5, -0.91, 0.26, -0.5],
+ [-0.26, -0.27, 0.17, 0.87]]
+biases = [2.0, 3.0, 0.5]
+layer_outputs = np.dot(inputs, np.array(weights).T) + biases
+print(layer_outputs)
 
 print("--------------------------------------------------------------------------------------")
